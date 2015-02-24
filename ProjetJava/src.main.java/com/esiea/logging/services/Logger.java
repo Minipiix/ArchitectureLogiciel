@@ -1,4 +1,6 @@
-package com.esiea.logging.bean;
+package com.esiea.logging.services;
+
+import java.sql.Date;
 
 /**
  * Logger class, log messages with given filter and target
@@ -7,6 +9,8 @@ package com.esiea.logging.bean;
 public class Logger {
 	
 	private String className;
+	private String format;
+	public Date calendar;
 	
 	public Logger(String className) {
 		this.className = className;
@@ -55,7 +59,15 @@ public class Logger {
 	 * @param message
 	 */
 	private void log(Severity severity, String message){
-		System.out.println("[" + severity + "] " + className + " " + message);
+		
+		format = "DATE [SEVERITY] className message";
+		String newStr = format.replaceAll("SEVERITY", severity.name());
+		newStr = format.replaceAll("message", message);
+		newStr = format.replaceAll("DATE", calendar.toGMTString());
+		System.out.println(newStr);
+		
+		
+		//System.out.println("[" + severity + "] " + className + " " + message);
 	}
 
 }

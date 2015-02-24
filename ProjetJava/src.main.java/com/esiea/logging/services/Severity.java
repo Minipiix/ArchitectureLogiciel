@@ -1,4 +1,4 @@
-package com.esiea.logging.bean;
+package com.esiea.logging.services;
 /**
  * 
  * @author Lucile

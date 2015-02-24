@@ -1,6 +1,6 @@
 package com.esiea.logging;
 
-import com.esiea.logging.bean.Logger;
+import com.esiea.logging.services.Logger;
 
 public class LoggerFactory {
 
