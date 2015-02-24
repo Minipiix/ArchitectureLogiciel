@@ -1,14 +1,14 @@
-package com.esiea.logging.services;
+package com.esiea.logging.model;
 /**
  * 
  * @author Lucile
  *
  */
 public enum Severity {
-	DEBUG ("debug"),
-	INFO ("info"),
-	WARN ("warn"),
-	ERROR ("error");
+	DEBUG ("DEBUG"),
+	INFO ("INFO"),
+	WARN ("WARN"),
+	ERROR ("ERROR");
 	
 	private String name;
 
