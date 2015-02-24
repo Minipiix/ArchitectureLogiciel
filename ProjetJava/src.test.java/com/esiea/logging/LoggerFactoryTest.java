@@ -30,6 +30,8 @@ public class LoggerFactoryTest {
 	@Test
 	public void logTest() {
 
+		logger.debug("ESIEA Message");
+		assertTrue(outContent.toString().contains("[debug] com.esiea.logging.LoggerFactoryTest ESIEA Message"));
 		logger.info("ESIEA Message");
 		assertTrue(outContent.toString().contains("[info] com.esiea.logging.LoggerFactoryTest ESIEA Message"));
 		logger.warn("ESIEA Message");

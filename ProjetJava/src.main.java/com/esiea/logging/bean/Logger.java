@@ -13,12 +13,21 @@ public class Logger {
 	}
 	
 	/**
+	 * Log message with severity debug
+	 * 
+	 * @param message
+	 */
+	public void debug(String message) {
+		System.out.println("[" +Severity.DEBUG + "] " + className + " " + message);
+	}
+	
+	/**
 	 * Log message with severity info
 	 * 
 	 * @param message
 	 */
 	public void info(String message) {
-		System.out.println("[info] " + className + " " + message);
+		System.out.println("[" +Severity.INFO + "] " + className + " " + message);
 	}
 	
 	/**
@@ -27,7 +36,7 @@ public class Logger {
 	 * @param message
 	 */
 	public void warn(String message) {
-		System.out.println("[warn] " + className + " " + message);
+		System.out.println("[" +Severity.WARN + "] " + className + " " + message);
 	}
 	
 	/**
@@ -36,9 +45,17 @@ public class Logger {
 	 * @param message
 	 */
 	public void error(String message) {
-		System.out.println("[error] " + className + " " + message);
+		System.out.println("[" +Severity.ERROR + "] " + className + " " + message);
 	}
 	
-	// TODO private method for logging (severity in param)
+	/**
+	 * Log message with severity choice
+	 * 
+	 * @param severity
+	 * @param message
+	 */
+	private void log(Severity severity, String message){
+		System.out.println("[" + severity + "] " + className + " " + message);
+	}
 
 }
