@@ -2,6 +2,6 @@ package com.esiea.logging.services;
 
 public interface Target {
 	
-	public void write();
+	public void write(String message);
 
 }

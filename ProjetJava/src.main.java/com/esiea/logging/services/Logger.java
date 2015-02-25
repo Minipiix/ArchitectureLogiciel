@@ -70,8 +70,10 @@ public class Logger {
 		log.setClassName(className.getName());
 		log.setDate(new Date());
 		
-		String out = formatter.format(log);
-		System.out.println(out);
+		
+				
+		//String out = formatter.format(log);
+		//System.out.println(out);
 	}
 
 }
