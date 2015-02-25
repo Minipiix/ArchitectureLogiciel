@@ -1,4 +1,4 @@
-package com.esiea.logging.services;
+package com.esiea.logging.services.formatter;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,8 +10,10 @@ import org.junit.Test;
 
 import com.esiea.logging.bean.Log;
 import com.esiea.logging.model.Severity;
+import com.esiea.logging.services.Formatter;
+import com.esiea.logging.services.formatter.FormatterImpl;
 
-public class FormatterTest {
+public class FormatterImplTest {
 	
 	private Log log;
 	
@@ -20,14 +22,14 @@ public class FormatterTest {
 		log = new Log();
 		log.setMessage("test message");
 		log.setSeverity(Severity.ERROR);
-		log.setClassName(FormatterTest.class.getName());
+		log.setClassName(FormatterImplTest.class.getName());
 		log.setDate(new Date());
 	}
 	
 	@Test
 	public void testDefaultPatternWithNull() {
 		
-		Formatter formatter = new Formatter(null);
+		Formatter formatter = new FormatterImpl(null);
 		String result = formatter.format(log);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy - hh:mm:ss");
@@ -37,7 +39,7 @@ public class FormatterTest {
 	@Test
 	public void testDefaultPatternWithEmpty() {
 		
-		Formatter formatter = new Formatter("");
+		Formatter formatter = new FormatterImpl("");
 		String result = formatter.format(log);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy - hh:mm:ss");
@@ -47,7 +49,7 @@ public class FormatterTest {
 	@Test
 	public void testCustomPatternDefaultDate() {
 		
-		Formatter formatter = new Formatter("[#SEVERITY#] #DATE# - #MESSAGE#");
+		Formatter formatter = new FormatterImpl("[#SEVERITY#] #DATE# - #MESSAGE#");
 		String result = formatter.format(log);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy - hh:mm:ss");
@@ -57,7 +59,7 @@ public class FormatterTest {
 	@Test
 	public void testCustomPatternCustomDate() {
 		
-		Formatter formatter = new Formatter("[#SEVERITY#] #DATE yyyy-MM-dd# - #MESSAGE#");
+		Formatter formatter = new FormatterImpl("[#SEVERITY#] #DATE yyyy-MM-dd# - #MESSAGE#");
 		String result = formatter.format(log);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

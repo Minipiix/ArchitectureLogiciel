@@ -5,19 +5,25 @@ package com.esiea.logging.model;
  *
  */
 public enum Severity {
-	DEBUG ("DEBUG"),
-	INFO ("INFO"),
-	WARN ("WARN"),
-	ERROR ("ERROR");
-	
-	private String name;
+	DEBUG ("DEBUG", 4),
+	INFO ("INFO", 3),
+	WARN ("WARN", 2),
+	ERROR ("ERROR", 1);
 
-	private Severity(String name) {
+	private String name;
+	private Integer priority;
+
+	private Severity(String name, Integer priority) {
 		this.name = name;
+		this.priority = priority;
 	}
 	
 	public String toString(){
 		return name;
+	}
+	
+	public Integer getPriority() {
+		return priority;
 	}
 
 }

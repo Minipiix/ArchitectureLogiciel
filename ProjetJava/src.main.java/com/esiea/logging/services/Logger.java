@@ -1,10 +1,13 @@
 package com.esiea.logging.services;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.esiea.logging.bean.Log;
 import com.esiea.logging.model.Severity;
+import com.esiea.logging.services.formatter.FormatterImpl;
 
 /**
  * Logger class, log messages with given filter and target
@@ -12,12 +15,29 @@ import com.esiea.logging.model.Severity;
  */
 public class Logger {
 	
-	private Formatter formatter;	
 	private Class<?> className;
+	private Severity MaxSeverity = Severity.INFO;
+	private FormatterImpl formatter = new FormatterImpl();
+	private List<Target> targets = new ArrayList<Target>();
 	
-	public Logger(Class<?> className, Formatter formater) {
+	public Logger(Class<?> className) {		
 		this.className = className;
-		this.formatter = formater;
+	}
+	
+	public void setMaxSeverity(Severity maxSeverity) {
+		MaxSeverity = maxSeverity;
+	}
+	
+	public Severity getMaxSeverity() {
+		return MaxSeverity;
+	}
+	
+	public void setFormatter(FormatterImpl formatter) {
+		this.formatter = formatter;
+	}
+	
+	public void addTarget(Target target) {
+		targets.add(target);
 	}
 	
 	/**
@@ -26,7 +46,7 @@ public class Logger {
 	 * @param message
 	 */
 	public void debug(String message) {
-		System.out.println("[" +Severity.DEBUG + "] " + className + " " + message);
+		log(Severity.DEBUG, message);
 	}
 	
 	/**
@@ -35,7 +55,7 @@ public class Logger {
 	 * @param message
 	 */
 	public void info(String message) {
-		System.out.println("[" +Severity.INFO + "] " + className + " " + message);
+		log(Severity.INFO, message);
 	}
 	
 	/**
@@ -44,7 +64,7 @@ public class Logger {
 	 * @param message
 	 */
 	public void warn(String message) {
-		System.out.println("[" +Severity.WARN + "] " + className + " " + message);
+		log(Severity.WARN, message);
 	}
 	
 	/**
@@ -53,7 +73,7 @@ public class Logger {
 	 * @param message
 	 */
 	public void error(String message) {
-		System.out.println("[" +Severity.ERROR + "] " + className + " " + message);
+		log(Severity.ERROR, message);
 	}
 	
 	/**
@@ -64,16 +84,19 @@ public class Logger {
 	 */
 	private void log(Severity severity, String message){
 		
+		// Create log object 
 		Log log = new Log();
 		log.setMessage(message);
 		log.setSeverity(severity);
 		log.setClassName(className.getName());
 		log.setDate(new Date());
-		
-		
 				
-		//String out = formatter.format(log);
-		//System.out.println(out);
+		for (Target target : targets) {
+			if(severity.getPriority() <= MaxSeverity.getPriority() 
+					&& severity.getPriority() <= target.getSeverityMax().getPriority()) {
+				target.write(formatter.format(log));
+			}
+		}
 	}
 
 }
