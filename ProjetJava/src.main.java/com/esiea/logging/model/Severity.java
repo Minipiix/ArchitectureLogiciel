@@ -25,5 +25,12 @@ public enum Severity {
 	public Integer getPriority() {
 		return priority;
 	}
+	
+	public static Severity getByName(String name) {
+	    for(Severity severity : values()) {
+	        if(severity.name.equals(name)) return severity;
+	    }
+	    return null;
+	 }
 
 }

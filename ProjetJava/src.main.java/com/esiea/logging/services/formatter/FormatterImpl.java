@@ -1,13 +1,17 @@
 package com.esiea.logging.services.formatter;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.esiea.logging.bean.Log;
-import com.esiea.logging.services.Formatter;
 
 public class FormatterImpl implements Formatter {
+	
+	// Formatter attributes keys
+	private static final String PATTERN = "pattern";
 	
 	// Formatter keys regex
 	private static final String KEY_SEVERITY = "#SEVERITY#";
@@ -21,28 +25,40 @@ public class FormatterImpl implements Formatter {
 	// Default pattern
 	private static final String DEFAULT_PATTERN ="#DATE# [#SEVERITY#] #CLASS# - #MESSAGE#";
 	
-	private String pattern;
+	private Map<String, String> attributs;
 	
 	public FormatterImpl() {
-		pattern = DEFAULT_PATTERN;
+		attributs = new HashMap<String, String>();
+		attributs.put(PATTERN, DEFAULT_PATTERN);
 	}
 	
 	public FormatterImpl(String pattern) {
 		this();
 		if(pattern != null && !pattern.equals("")) {
-			this.pattern = pattern;
+			attributs.put(PATTERN, pattern);
 		}
 	}
 
 	@Override
 	public String format(Log log) {
 		
-		String formattedLog = pattern;
+		String formattedLog = attributs.get(PATTERN);
 		formattedLog = setSeverity(formattedLog, log);
 		formattedLog = setMessage(formattedLog, log);
 		formattedLog = setClass(formattedLog, log);
 		formattedLog = setDate(formattedLog, log);
 		return formattedLog;
+	}
+	
+	@Override
+	public void setAttribute(String attributeName, Object attribute) {
+		if(PATTERN.equals(attributeName)) {
+			attributs.put(PATTERN, (String) attribute);
+		}
+	}
+	
+	public Map<String, String> getAttributs() {
+		return attributs;
 	}
 	
 	private String setSeverity(String stringLog, Log log) {

@@ -7,7 +7,8 @@ import java.util.List;
 
 import com.esiea.logging.bean.Log;
 import com.esiea.logging.model.Severity;
-import com.esiea.logging.services.formatter.FormatterImpl;
+import com.esiea.logging.services.formatter.Formatter;
+import com.esiea.logging.services.target.Target;
 
 /**
  * Logger class, log messages with given filter and target
@@ -16,8 +17,8 @@ import com.esiea.logging.services.formatter.FormatterImpl;
 public class Logger {
 	
 	private Class<?> className;
-	private Severity MaxSeverity = Severity.INFO;
-	private FormatterImpl formatter = new FormatterImpl();
+	private Severity maxSeverity = Severity.INFO;
+	private Formatter formatter;
 	private List<Target> targets = new ArrayList<Target>();
 	
 	public Logger(Class<?> className) {		
@@ -25,15 +26,21 @@ public class Logger {
 	}
 	
 	public void setMaxSeverity(Severity maxSeverity) {
-		MaxSeverity = maxSeverity;
+		if(maxSeverity != null) {
+			this.maxSeverity = maxSeverity;
+		}
 	}
 	
 	public Severity getMaxSeverity() {
-		return MaxSeverity;
+		return maxSeverity;
 	}
 	
-	public void setFormatter(FormatterImpl formatter) {
+	public void setFormatter(Formatter formatter) {
 		this.formatter = formatter;
+	}
+	
+	public void setTargets(List<Target> targets) {
+		this.targets = targets;
 	}
 	
 	public void addTarget(Target target) {
@@ -92,7 +99,7 @@ public class Logger {
 		log.setDate(new Date());
 				
 		for (Target target : targets) {
-			if(severity.getPriority() <= MaxSeverity.getPriority() 
+			if(severity.getPriority() <= maxSeverity.getPriority() 
 					&& severity.getPriority() <= target.getSeverityMax().getPriority()) {
 				target.write(formatter.format(log));
 			}

@@ -1,4 +1,4 @@
-package com.esiea.logging.services;
+package com.esiea.logging.services.target;
 
 import com.esiea.logging.model.Severity;
 
@@ -24,5 +24,13 @@ public interface Target {
 	 * @return
 	 */
 	void setSeverityMax(Severity severityMax);
+	
+	/**
+	 * Add any attribute needed for formatter
+	 * 
+	 * @param attributeName
+	 * @param attribute
+	 */
+	void setAttribute(String attributeName, Object attribute);
 
 }

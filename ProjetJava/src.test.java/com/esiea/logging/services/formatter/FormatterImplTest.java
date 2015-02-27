@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import com.esiea.logging.bean.Log;
 import com.esiea.logging.model.Severity;
-import com.esiea.logging.services.Formatter;
 import com.esiea.logging.services.formatter.FormatterImpl;
 
 public class FormatterImplTest {
@@ -33,7 +32,7 @@ public class FormatterImplTest {
 		String result = formatter.format(log);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy - hh:mm:ss");
-		assertEquals(sdf.format(log.getDate()) +" [ERROR] com.esiea.logging.services.FormatterTest - test message", result);
+		assertEquals(sdf.format(log.getDate()) +" [ERROR] com.esiea.logging.services.formatter.FormatterImplTest - test message", result);
 	}
 	
 	@Test
@@ -43,7 +42,7 @@ public class FormatterImplTest {
 		String result = formatter.format(log);
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy - hh:mm:ss");
-		assertEquals(sdf.format(log.getDate()) +" [ERROR] com.esiea.logging.services.FormatterTest - test message", result);
+		assertEquals(sdf.format(log.getDate()) +" [ERROR] com.esiea.logging.services.formatter.FormatterImplTest - test message", result);
 	}
 	
 	@Test

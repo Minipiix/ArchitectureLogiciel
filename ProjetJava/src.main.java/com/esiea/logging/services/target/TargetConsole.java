@@ -1,11 +1,14 @@
 package com.esiea.logging.services.target;
 
 import com.esiea.logging.model.Severity;
-import com.esiea.logging.services.Target;
 
 public class TargetConsole implements Target{
 	
 	private Severity severityMax = Severity.INFO;
+	
+	public TargetConsole() {
+		// nothing to do
+	}
 
 	@Override
 	public void write(String log){
@@ -20,6 +23,11 @@ public class TargetConsole implements Target{
 	@Override
 	public void setSeverityMax(Severity severityMax) {
 		this.severityMax = severityMax;
+	}
+	
+	@Override
+	public void setAttribute(String attributeName, Object attribute) {
+		// Nothing to do
 	}
 
 }
