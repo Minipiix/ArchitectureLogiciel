@@ -25,24 +25,23 @@ public class FormatterImpl implements Formatter {
 	// Default pattern
 	private static final String DEFAULT_PATTERN ="#DATE# [#SEVERITY#] #CLASS# - #MESSAGE#";
 	
-	private Map<String, String> attributs;
+	private String pattern;
 	
 	public FormatterImpl() {
-		attributs = new HashMap<String, String>();
-		attributs.put(PATTERN, DEFAULT_PATTERN);
+		pattern = DEFAULT_PATTERN;
 	}
 	
 	public FormatterImpl(String pattern) {
 		this();
 		if(pattern != null && !pattern.equals("")) {
-			attributs.put(PATTERN, pattern);
+			this.pattern = pattern;
 		}
 	}
 
 	@Override
 	public String format(Log log) {
 		
-		String formattedLog = attributs.get(PATTERN);
+		String formattedLog = pattern;
 		formattedLog = setSeverity(formattedLog, log);
 		formattedLog = setMessage(formattedLog, log);
 		formattedLog = setClass(formattedLog, log);
@@ -53,12 +52,12 @@ public class FormatterImpl implements Formatter {
 	@Override
 	public void setAttribute(String attributeName, Object attribute) {
 		if(PATTERN.equals(attributeName)) {
-			attributs.put(PATTERN, (String) attribute);
+			pattern = (String) attribute;
 		}
 	}
 	
-	public Map<String, String> getAttributs() {
-		return attributs;
+	public String getPattern() {
+		return pattern;
 	}
 	
 	private String setSeverity(String stringLog, Log log) {

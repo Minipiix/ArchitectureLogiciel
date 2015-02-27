@@ -4,8 +4,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.esiea.logging.model.Severity;
 
@@ -19,24 +17,23 @@ public class TargetFile implements Target {
 
 	private Severity severityMax = Severity.INFO;
 
-	private Map<String, String> attributs;
+	private String filePath;
 
 	public TargetFile() {
-		attributs = new HashMap<String, String>();
-		attributs.put(FILE, DEFAULT_FILE_PATH);
+		filePath = DEFAULT_FILE_PATH;
 	}
 
 	public TargetFile(String filePath) {
 		this();
 		if (filePath != null && !filePath.equals("")) {
-			attributs.put(FILE, filePath);
+			this.filePath = filePath;
 		}
 	}
 
 	public void write(String message) {
 		try {
 
-			File file = new File(attributs.get(FILE));
+			File file = new File(filePath);
 
 			// if file doesnt exists, then create it
 			if (!file.exists()) {
@@ -68,11 +65,11 @@ public class TargetFile implements Target {
 	@Override
 	public void setAttribute(String attributeName, Object attribute) {
 		if (FILE.equals(attributeName)) {
-			attributs.put(FILE, (String) attribute);
+			filePath = (String) attribute;
 		}
 	}
 	
-	public Map<String, String> getAttributs() {
-		return attributs;
+	public String getFilePath() {
+		return filePath;
 	}
 }

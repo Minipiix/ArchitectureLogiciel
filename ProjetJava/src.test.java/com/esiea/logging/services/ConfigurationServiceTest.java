@@ -27,7 +27,7 @@ public class ConfigurationServiceTest {
 		Assert.assertNotNull(formatter);
 		Assert.assertTrue(formatter instanceof FormatterImpl);
 		FormatterImpl formatterImpl = (FormatterImpl) formatter; 
-		Assert.assertEquals("[#SEVERITY#] #DATE# at #CLASS# - #MESSAGE#", formatterImpl.getAttributs().get("pattern"));
+		Assert.assertEquals("[#SEVERITY#] #DATE# at #CLASS# - #MESSAGE#", formatterImpl.getPattern());
 		
 		// Test Targets
 		List<Target> targets = conf.getTargets(); 
@@ -36,7 +36,7 @@ public class ConfigurationServiceTest {
 		Assert.assertTrue(targets.get(0) instanceof TargetConsole);
 		Assert.assertTrue(targets.get(1) instanceof TargetFile);
 		TargetFile targetFile = (TargetFile) targets.get(1); 
-		Assert.assertEquals("testLogger.log", targetFile.getAttributs().get("file"));
+		Assert.assertEquals("testLogger.log", targetFile.getFilePath());
 	}
 	
 	@Test
@@ -52,7 +52,7 @@ public class ConfigurationServiceTest {
 		Assert.assertNotNull(formatter);
 		Assert.assertTrue(formatter instanceof FormatterImpl);
 		FormatterImpl formatterImpl = (FormatterImpl) formatter; 
-		Assert.assertEquals("[#SEVERITY#] - #MESSAGE#", formatterImpl.getAttributs().get("pattern"));
+		Assert.assertEquals("[#SEVERITY#] - #MESSAGE#", formatterImpl.getPattern());
 		
 		// Test Targets
 		List<Target> targets = conf.getTargets(); 
@@ -60,6 +60,6 @@ public class ConfigurationServiceTest {
 		Assert.assertEquals(1, targets.size());
 		Assert.assertTrue(targets.get(0) instanceof TargetFile);
 		TargetFile targetFile = (TargetFile) targets.get(0); 
-		Assert.assertEquals("testLogger2.log", targetFile.getAttributs().get("file"));
+		Assert.assertEquals("testLogger2.log", targetFile.getFilePath());
 	}
 }
